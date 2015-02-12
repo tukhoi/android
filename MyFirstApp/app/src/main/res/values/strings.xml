@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">MyFirstApp</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+
+    <string-array name="feed_source">
+        <item>Elegant Code</item>
+        <item>dotNet Rock!</item>
+        <item>Channel9 MSDN</item>
+        <item>WindowsPhone Central</item>
+        <item>Herding Code</item>
+    </string-array>
+
+</resources>
