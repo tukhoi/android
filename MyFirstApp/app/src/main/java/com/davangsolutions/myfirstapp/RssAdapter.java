@@ -26,10 +26,12 @@ public class RssAdapter extends BaseAdapter
 {
     private final List<FeedItem> items;
     private final Context context;
+    private Bitmap defaultBitmap;
 
     public RssAdapter(Context context, List<FeedItem> items) {
         this.items = items;
         this.context = context;
+        defaultBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.ic_launcher);
     }
 
     @Override
@@ -61,31 +63,13 @@ public class RssAdapter extends BaseAdapter
             TextView itemDescriptionTextView = (TextView) convertView.findViewById(R.id.itemDescription);
             itemDescriptionTextView.setText(item.getDescription());
 
-            //ImageView itemThumbnailImageView = (ImageView) convertView.findViewById(R.id.itemThumbnail);
-            //itemThumbnailImageView.setImageBitmap(getBitmapFromURL(item.getThumbnailUrlText()));
+            ImageView itemThumbnailImageView = (ImageView) convertView.findViewById(R.id.itemThumbnail);
+            String url = item.getThumbnailUrlText();
+            if (url == null)
+                itemThumbnailImageView.setImageBitmap(defaultBitmap);
+            else
+                new DownloadImageTask(itemThumbnailImageView).execute(url);
         }
         return convertView;
     }
-
-    public static Bitmap getBitmapFromURL(String src) {
-        try {
-            Log.e("src", src);
-            URL url = new URL(src);
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setDoInput(true);
-            connection.connect();
-            InputStream input = connection.getInputStream();
-            Bitmap myBitmap = BitmapFactory.decodeStream(input);
-            Log.e("Bitmap","returned");
-            return myBitmap;
-        } catch (IOException e) {
-            e.printStackTrace();
-            Log.e("Exception",e.getMessage());
-            return null;
-        }
-    }
-
-//    static class ViewHolder {
-//        TextView itemTitle;
-//    }
 }
