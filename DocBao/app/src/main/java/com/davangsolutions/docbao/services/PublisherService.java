@@ -6,7 +6,6 @@ import com.davangsolutions.docbao.models.Publisher;
 import com.davangsolutions.docbao.models.Result;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -17,7 +16,7 @@ public class PublisherService extends BaseService {
 
     public Result<List<Publisher>> getPublishers()
     {
-        List<Publisher> publishers = new ArrayList(_publisherList.values());
+        List<Publisher> publishers = new ArrayList(_publisherMap.values());
         if (publishers != null && publishers.size() > 0)
             return Result(publishers);
         else
@@ -26,7 +25,7 @@ public class PublisherService extends BaseService {
 
     public Result<Publisher> getPublisher(UUID publisherId)
     {
-        Publisher publisher = _publisherList.get(publisherId);
+        Publisher publisher = _publisherMap.get(publisherId);
         if (publisher != null)
             return Result(publisher);
         else
